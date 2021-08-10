@@ -22,22 +22,23 @@ export class ChatServiceService {
   ) {}
 
   messages: Message[] = []
-  url = `${environment.apiUrl}`
-  key = `${environment.apiKey}`
+
   id;
 
 // 'data' will be the information from form
   createSession() {
-    return this.http.post<any>(this.url+'new_session?token='+this.key, {
+    return this.http.post<any>(this.url + 'new_session?token=' + this.key, {
       //data.name and data.message will carry over from form
       name: "john",
       message: "hi"
     }).pipe(tap(response => {
       response.payload[0].session_id
-      localStorage.setItem('session_id', response.payload[0].session_id);
+      localStorage.setItem('session_id', response.payload[0].session_id)
+      debugger;
     }
     )).subscribe(response => {
       console.log(response);
+      console.log(response.session_id)
       // this.id = response.session_id;
     })
   }
@@ -80,10 +81,6 @@ export class ChatServiceService {
     }).subscribe(response => {
       console.log(response)
     })
-  }
-
-  getMesssages() {
-
   }
 
 }
